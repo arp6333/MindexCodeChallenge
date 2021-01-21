@@ -8,10 +8,11 @@ namespace challenge.Models
     public class ReportingStructure
     {
         /// <summary>
-        /// The id of the employee for this reporting structure used as a key.
+        /// The id for this reporting structure used as a key.
+        /// Currently, not set as it is not needed for the task.
         /// </summary>
         [Key]
-        public string EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
 
         /// <summary>
         /// The employee requested.

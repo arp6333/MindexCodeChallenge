@@ -57,7 +57,6 @@ namespace challenge.Repositories
                 int numberOfReports = GetNumberOfReportsByEmployee(employee);
                 return new ReportingStructure
                 {
-                    EmployeeId = id,
                     Employee = employee,
                     NumberOfReports = numberOfReports
                 };
