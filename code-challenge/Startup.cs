@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using challenge.Data;
 using Microsoft.EntityFrameworkCore;
 using challenge.Repositories;
@@ -34,9 +28,8 @@ namespace code_challenge
 
             services.AddScoped<IEmployeeRepository, EmployeeRespository>();
             //services.AddScoped<ICompensationRepository, CompensationRepository>();
-
             services.AddTransient<EmployeeDataSeeder>();
-
+            //services.AddTransient<CompensationDataSeeder>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             //services.AddScoped<ICompensationService, CompensationService>();
             services.AddMvc();

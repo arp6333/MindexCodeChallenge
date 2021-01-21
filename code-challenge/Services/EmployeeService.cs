@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using challenge.Models;
+﻿using challenge.Models;
 using Microsoft.Extensions.Logging;
 using challenge.Repositories;
 
@@ -32,7 +28,7 @@ namespace challenge.Services
 
         public Employee GetById(string id)
         {
-            if(!String.IsNullOrEmpty(id))
+            if(!string.IsNullOrEmpty(id))
             {
                 return _employeeRepository.GetById(id);
             }
@@ -58,6 +54,21 @@ namespace challenge.Services
             }
 
             return newEmployee;
+        }
+
+        /// <summary>
+        /// Get a reporting structure by a given employee id.
+        /// </summary>
+        /// <param name="id">Id of the employee to use.</param>
+        /// <returns>The data structure for the given employee id.</returns>
+        public ReportingStructure GetReportingStructureById(string id)
+        {
+            if (!string.IsNullOrEmpty(id))
+            {
+                return _employeeRepository.GetReportingStructureById(id);
+            }
+
+            return null;
         }
     }
 }

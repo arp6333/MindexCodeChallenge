@@ -7,7 +7,6 @@ using challenge.Data;
 using Microsoft.EntityFrameworkCore;
 using challenge.Repositories;
 using challenge.Services;
-using challenge.Controllers;
 
 namespace code_challenge.Tests.Integration
 {
