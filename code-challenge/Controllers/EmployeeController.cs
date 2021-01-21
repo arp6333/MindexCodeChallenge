@@ -24,11 +24,30 @@ namespace challenge.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            _logger.LogDebug($"Received employee create request for '{employee.FirstName} {employee.LastName}'");
+            if (string.IsNullOrEmpty(employee.FirstName))
+            {
+                string errorText = "Missing required employee first name for the employee create request";
 
-            _employeeService.Create(employee);
+                _logger.LogDebug(errorText);
 
-            return CreatedAtRoute("getEmployeeById", new { id = employee.EmployeeId }, employee);
+                return BadRequest(errorText);
+            }
+            else if (string.IsNullOrEmpty(employee.LastName))
+            {
+                string errorText = "Missing required employee last name for the employee create request";
+
+                _logger.LogDebug(errorText);
+
+                return BadRequest(employee);
+            }
+            else
+            {
+                _logger.LogDebug($"Received employee create request for '{employee.FirstName} {employee.LastName}'");
+
+                _employeeService.Create(employee);
+
+                return CreatedAtRoute("getEmployeeById", new { id = employee.EmployeeId }, employee);
+            }
         }
 
         [HttpGet("{id}", Name = "getEmployeeById")]
