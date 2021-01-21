@@ -20,22 +20,24 @@ namespace challenge.Controllers
         [HttpPost]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
-            // Make sure employee first and last name are given
+            // Make sure required employee fields are provided
             if (string.IsNullOrEmpty(employee.FirstName))
             {
                 string errorText = "Missing required employee first name for the employee create request";
-
                 _logger.LogDebug(errorText);
-
                 return BadRequest(errorText);
             }
             else if (string.IsNullOrEmpty(employee.LastName))
             {
                 string errorText = "Missing required employee last name for the employee create request";
-
                 _logger.LogDebug(errorText);
-
-                return BadRequest(employee);
+                return BadRequest(errorText);
+            }
+            else if (string.IsNullOrEmpty(employee.EmployeeId))
+            {
+                string errorText = "Missing required employee id for the employee create request";
+                _logger.LogDebug(errorText);
+                return BadRequest(errorText);
             }
             else
             {
