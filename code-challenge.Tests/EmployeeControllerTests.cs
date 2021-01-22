@@ -133,5 +133,48 @@ namespace code_challenge.Tests.Integration
             // Assert
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
+
+        /// <summary>
+        /// Test GetReportingStructureById with a valid id returns Ok and valid info.
+        /// </summary>
+        [TestMethod]
+        public void GetReportingStructureById_Valid_Returns_Ok()
+        {
+            // Arrange
+            string employeeId = "16a596ae-edd3-4847-99fe-c4518e82c86f";
+            string expectedFirstName = "John";
+            string expectedLastName = "Lennon";
+            int expectedNumberOfReports = 4;
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/reportingstructure/{employeeId}");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+            ReportingStructure reportingStructure = response.DeserializeContent<ReportingStructure>();
+            Assert.AreEqual(employeeId, reportingStructure.EmployeeId);
+            Assert.AreEqual(expectedFirstName, reportingStructure.Employee.FirstName);
+            Assert.AreEqual(expectedLastName, reportingStructure.Employee.LastName);
+            Assert.AreEqual(expectedNumberOfReports, reportingStructure.NumberOfReports);
+        }
+
+        /// <summary>
+        /// Test GetReportingStructureById with an invalid id returns not found.
+        /// </summary>
+        [TestMethod]
+        public void GetReportingStructureById_Invalid_Returns_Ok()
+        {
+            // Arrange
+            string employeeId = "Invalid_Id";
+
+            // Execute
+            var getRequestTask = _httpClient.GetAsync($"api/reportingstructure/{employeeId}");
+            var response = getRequestTask.Result;
+
+            // Assert
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
     }
 }

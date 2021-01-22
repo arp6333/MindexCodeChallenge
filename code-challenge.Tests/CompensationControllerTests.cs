@@ -54,7 +54,7 @@ namespace code_challenge.Tests.Integration
             // Arrange
             Compensation compensation = new Compensation()
             {
-                EmployeeId = "New-Employee-Id-Test",
+                EmployeeId = "New_Employee_Test",
                 EffectiveDate = Convert.ToDateTime("01/22/2021"),
                 Salary = 99999.99
             };
@@ -129,7 +129,7 @@ namespace code_challenge.Tests.Integration
         public void GetCompensationById_Invalid_Returns_NotFound()
         {
             // Arrange
-            string employeeId = "Invalid-Id";
+            string employeeId = "Invalid_Id";
 
             // Execute
             var getRequestTask = _httpClient.GetAsync($"api/compensation/{employeeId}");
