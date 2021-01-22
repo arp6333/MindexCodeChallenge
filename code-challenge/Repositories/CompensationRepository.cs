@@ -57,7 +57,7 @@ namespace challenge.Repositories
         /// <returns>Compensation retrieved.</returns>
         public Compensation GetById(string id)
         {
-            return _compensationContext.Compensations.Include(compensation => compensation.Employee.DirectReports).AsEnumerable().Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
+            return _compensationContext.Compensations.Include(compensation => compensation.Employee.DirectReports).ThenInclude(employee => employee.DirectReports).AsEnumerable().Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
         }
 
         /// <summary>

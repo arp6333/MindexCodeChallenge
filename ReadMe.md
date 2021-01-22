@@ -1,4 +1,8 @@
 # Mindex Coding Challenge
+
+## Notes
+Updated by Aniela Parobek: https://www.linkedin.com/in/aniela-parobek-470143150/.
+
 ## What's Provided
 A simple [.NetCore 2.1](https://www.microsoft.com/net/download/dotnet-core/sdk-2.1.300) web application has been created and bootstrapped 
 with data. The application contains information about all employees at a company. On application start-up, an in-memory 
