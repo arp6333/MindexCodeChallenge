@@ -34,7 +34,7 @@ namespace challenge.Controllers
         public IActionResult CreateCompensation([FromBody] Compensation compensation)
         {
             // Make sure required compensation fields are provided
-            if (string.IsNullOrEmpty(compensation.Employee.EmployeeId))
+            if (string.IsNullOrEmpty(compensation.EmployeeId))
             {
                 string errorText = "Missing required employee id for the compensation create request";
                 _logger.LogDebug(errorText);
@@ -42,11 +42,11 @@ namespace challenge.Controllers
             }
             else
             {
-                _logger.LogDebug($"Received compensation create request for '{compensation.Employee.EmployeeId}'");
+                _logger.LogDebug($"Received compensation create request for '{compensation.EmployeeId}'");
 
                 _compensationService.Create(compensation);
 
-                return CreatedAtRoute("getCompensationById", new { id = compensation.Employee.EmployeeId }, compensation);
+                return CreatedAtRoute("getCompensationById", new { id = compensation.EmployeeId }, compensation);
             }
         }
 

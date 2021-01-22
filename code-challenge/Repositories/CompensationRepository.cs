@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using challenge.Models;
 using Microsoft.Extensions.Logging;
 using challenge.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace challenge.Repositories
 {
@@ -12,6 +13,7 @@ namespace challenge.Repositories
     public class CompensationRepository : ICompensationRepository
     {
         private readonly CompensationContext _compensationContext;
+        private readonly EmployeeContext _employeeContext;
         private readonly ILogger<ICompensationRepository> _logger;
 
         /// <summary>
@@ -19,9 +21,11 @@ namespace challenge.Repositories
         /// </summary>
         /// <param name="logger">Logger object.</param>
         /// <param name="compensationContext">Compensation context.</param>
-        public CompensationRepository(ILogger<ICompensationRepository> logger, CompensationContext compensationContext)
+        /// <param name="employeeContext">Employee context.</param>
+        public CompensationRepository(ILogger<ICompensationRepository> logger, CompensationContext compensationContext, EmployeeContext employeeContext)
         {
             _compensationContext = compensationContext;
+            _employeeContext = employeeContext;
             _logger = logger;
         }
 
@@ -32,8 +36,18 @@ namespace challenge.Repositories
         /// <returns>Result of the post request.</returns>
         public Compensation Add(Compensation compensation)
         {
-            _compensationContext.Compensations.Add(compensation);
-            return compensation;
+            // Make sure the employee is set, and include direct reports
+            compensation.Employee = _employeeContext.Employees.Include(employee => employee.DirectReports).AsEnumerable().FirstOrDefault(employee => employee.EmployeeId.Equals(compensation.EmployeeId));
+            if (_compensationContext.Compensations.Any(existingCompensation => existingCompensation.EmployeeId.Equals(compensation.EmployeeId)))
+            {
+                _logger.LogDebug($"Compensation '{compensation.EmployeeId}' already exists");
+                return null;
+            }
+            else
+            {
+                _compensationContext.Compensations.Add(compensation);
+                return compensation;
+            }
         }
 
         /// <summary>
@@ -43,7 +57,7 @@ namespace challenge.Repositories
         /// <returns>Compensation retrieved.</returns>
         public Compensation GetById(string id)
         {
-            return _compensationContext.Compensations.AsEnumerable().Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
+            return _compensationContext.Compensations.Include(compensation => compensation.Employee.DirectReports).AsEnumerable().Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
         }
 
         /// <summary>

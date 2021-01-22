@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using challenge.Models;
 using Microsoft.Extensions.Logging;
 using challenge.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace challenge.Repositories
 {
@@ -28,7 +29,7 @@ namespace challenge.Repositories
         public Employee GetById(string id)
         {
             // Make sure the direct reports are being retrieved as well - otherwise they are returning as null
-            return _employeeContext.Employees.AsEnumerable().Where(employee => employee.EmployeeId.Equals(id)).SingleOrDefault();
+            return _employeeContext.Employees.Include(employee => employee.DirectReports).AsEnumerable().Where(employee => employee.EmployeeId.Equals(id)).SingleOrDefault();
         }
 
         public Task SaveAsync()
