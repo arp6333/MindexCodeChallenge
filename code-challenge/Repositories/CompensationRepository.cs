@@ -33,11 +33,12 @@ namespace challenge.Repositories
         /// Add a new compensation.
         /// </summary>
         /// <param name="id">Compensation object to create.</param>
-        /// <returns>Result of the post request.</returns>
+        /// <returns>Compensation added.</returns>
         public Compensation Add(Compensation compensation)
         {
             // Make sure the employee is set, and include direct reports
-            compensation.Employee = _employeeContext.Employees.Include(employee => employee.DirectReports).AsEnumerable().FirstOrDefault(employee => employee.EmployeeId.Equals(compensation.EmployeeId));
+            compensation.Employee = _employeeContext.Employees.Include(employee => employee.DirectReports).AsEnumerable()
+                .FirstOrDefault(employee => employee.EmployeeId.Equals(compensation.EmployeeId));
             if (_compensationContext.Compensations.Any(existingCompensation => existingCompensation.EmployeeId.Equals(compensation.EmployeeId)))
             {
                 _logger.LogDebug($"Compensation '{compensation.EmployeeId}' already exists");
@@ -57,7 +58,11 @@ namespace challenge.Repositories
         /// <returns>Compensation retrieved.</returns>
         public Compensation GetById(string id)
         {
-            return _compensationContext.Compensations.Include(compensation => compensation.Employee.DirectReports).ThenInclude(employee => employee.DirectReports).AsEnumerable().Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
+            // One small point here is that I am unsure of how deep to go with the 'ThenInclude'
+            // to retrieve direct reports - seems out of my scope to determine though
+            return _compensationContext.Compensations.Include(compensation => compensation.Employee.DirectReports)
+                .ThenInclude(employee => employee.DirectReports).AsEnumerable()
+                .Where(compensation => compensation.EmployeeId.Equals(id)).SingleOrDefault();
         }
 
         /// <summary>

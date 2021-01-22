@@ -30,7 +30,7 @@ namespace code_challenge
                 options.UseInMemoryDatabase("CompensationDB");
             });
 
-            services.AddScoped<IEmployeeRepository, EmployeeRespository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<ICompensationRepository, CompensationRepository>();
 
             services.AddTransient<EmployeeDataSeeder>();

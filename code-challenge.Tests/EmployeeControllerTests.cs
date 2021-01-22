@@ -40,6 +40,7 @@ namespace code_challenge.Tests.Integration
             // Arrange
             var employee = new Employee()
             {
+                EmployeeId = "DebbieId",
                 Department = "Complaints",
                 FirstName = "Debbie",
                 LastName = "Downer",
