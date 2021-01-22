@@ -11,7 +11,7 @@ namespace challenge.Models
         /// The employee id for this reporting structure used as a key.
         /// </summary>
         [Key]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         /// <summary>
         /// The employee requested.

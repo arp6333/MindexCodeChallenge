@@ -12,7 +12,6 @@ namespace challenge.Repositories
     public class CompensationRepository : ICompensationRepository
     {
         private readonly CompensationContext _compensationContext;
-        private readonly EmployeeContext _employeeContext;
         private readonly ILogger<ICompensationRepository> _logger;
 
         /// <summary>
@@ -20,11 +19,9 @@ namespace challenge.Repositories
         /// </summary>
         /// <param name="logger">Logger object.</param>
         /// <param name="compensationContext">Compensation context.</param>
-        /// <param name="employeeContext">Employee context.</param>
-        public CompensationRepository(ILogger<ICompensationRepository> logger, CompensationContext compensationContext, EmployeeContext employeeContext)
+        public CompensationRepository(ILogger<ICompensationRepository> logger, CompensationContext compensationContext)
         {
             _compensationContext = compensationContext;
-            _employeeContext = employeeContext;
             _logger = logger;
         }
 
@@ -35,8 +32,6 @@ namespace challenge.Repositories
         /// <returns>Result of the post request.</returns>
         public Compensation Add(Compensation compensation)
         {
-            // Make sure the employee is set
-            compensation.Employee = _employeeContext.Employees.FirstOrDefault(employee => employee.EmployeeId.Equals(compensation.Employee.EmployeeId));
             _compensationContext.Compensations.Add(compensation);
             return compensation;
         }
