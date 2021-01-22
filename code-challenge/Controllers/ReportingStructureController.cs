@@ -13,7 +13,7 @@ namespace challenge.Controllers
         /// <summary>
         /// Create a new reporting structure controller.
         /// </summary>
-        /// <param name="logger">Allow logging messages.</param>
+        /// <param name="logger">Logging object.</param>
         /// <param name="employeeService">Employee service to use.</param>
         public ReportingStructureController(ILogger<ReportingStructureController> logger, IEmployeeService employeeService)
         {

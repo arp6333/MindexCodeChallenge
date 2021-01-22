@@ -5,6 +5,9 @@ using challenge.Models;
 
 namespace challenge.Controllers
 {
+    /// <summary>
+    /// Controller for compensation.
+    /// </summary>
     [Route("api/compensation")]
     public class CompensationController : Controller
     {
@@ -14,9 +17,9 @@ namespace challenge.Controllers
         /// <summary>
         /// Create a new compensation controller.
         /// </summary>
-        /// <param name="logger">Allow logging messages.</param>
-        /// <param name="employeeService">Employee service to use.</param>
-        public CompensationController(ILogger<EmployeeController> logger, ICompensationService compensationService)
+        /// <param name="logger">Logging object.</param>
+        /// <param name="compensationService">Compensation service to use.</param>
+        public CompensationController(ILogger<CompensationController> logger, ICompensationService compensationService)
         {
             _logger = logger;
             _compensationService = compensationService;

@@ -1,8 +1,12 @@
 ﻿using challenge.Models;
+using System.Threading.Tasks;
 
-namespace challenge.Services
+namespace challenge.Repositories
 {
-    public interface ICompensationService
+    /// <summary>
+    /// Interface for the compensation repository.
+    /// </summary>
+    public interface ICompensationRepository
     {
         /// <summary>
         /// Get a compensation object by employee id.
@@ -16,6 +20,12 @@ namespace challenge.Services
         /// </summary>
         /// <param name="compensation">Compensation object to create.</param>
         /// <returns>Created compensation object.</returns>
-        Compensation Create(Compensation compensation);
+        Compensation Add(Compensation compensation);
+
+        /// <summary>
+        /// Saves changes asynchronously.
+        /// </summary>
+        /// <returns>Save task.</returns>
+        Task SaveAsync();
     }
 }

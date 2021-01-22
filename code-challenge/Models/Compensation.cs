@@ -9,11 +9,10 @@ namespace challenge.Models
     public class Compensation
     {
         /// <summary>
-        /// The id for this compensation used as a key.
-        /// Currently, not set as it is not needed for the task.
+        /// The employee id for this compensation used as a key.
         /// </summary>
         [Key]
-        public int CompensationId { get; set; }
+        public int EmployeeId { get; set; }
 
         /// <summary>
         /// The employee requested.
